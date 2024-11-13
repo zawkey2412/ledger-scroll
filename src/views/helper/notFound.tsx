@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import LinkButton from "../components/linkButton";
-import dragonEgg from "../assets/dragon-egg.png";
+import CTAButton from "../../components/CTAButton";
+import dragonEgg from "../../assets/dragon-egg.png";
 
-// Framer definition for the egg animation
 const eggAnimation = {
+  // Define the rotation animation for the dragon egg
   rotate: [0, 10, -10, 10, -10, 0, 0, 0],
   transition: {
     duration: 4,
@@ -12,11 +12,12 @@ const eggAnimation = {
   },
 };
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white p-4">
-      <div className="">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-primary text-white p-4">
+      <div className="mb-3">
         <motion.img
+          // Display the animated dragon egg image
           src={dragonEgg}
           alt="Dragon Egg"
           aria-label="Twitching Dragon Egg"
@@ -32,13 +33,14 @@ const NotFound = () => {
         <p className="text-base mt-2">
           You might want to run back to safety before it hatches.
         </p>
-        <LinkButton
+        <CTAButton
+          // Call to action button to navigate back to the home page
           to="/"
           text="Back to Safety"
           fromColor="from-red-600"
           toColor="to-red-400"
-          hoverFromColor="from-red-700"
-          hoverToColor="to-red-500"
+          hoverFromColor="hover:from-red-700"
+          hoverToColor="hover:to-red-500"
         />
       </div>
     </div>
