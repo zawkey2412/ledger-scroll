@@ -8,8 +8,9 @@ A React + TypeScript project using Vite for fast development and build times. Th
 - [Getting Started](#getting-started)
 - [Development](#development)
 - [Building](#building)
+- [Design and Implementation](#design-and-implementation)
 - [Expanding the ESLint Configuration](#expanding-the-eslint-configuration)
-- [License](#license)
+- [Deployment](#deployment)
 
 ## Features
 
@@ -19,6 +20,9 @@ A React + TypeScript project using Vite for fast development and build times. Th
 - ✨ ESLint for code quality
 - 🏗 React Router for navigation
 - 🎨 Tailwind CSS for styling
+- 🎥 Framer Motion for animations
+- 🔥 Firebase for backend services
+- 🎨 React Icons for iconography
 
 ## Getting Started
 
@@ -72,3 +76,22 @@ To build the project for production, run:
 ```sh
 npm run build
 ```
+
+## Design and Implementation
+
+The reasons why I chose this design are:
+
+1. **Personal Affinity:** I love tabletop RPGs, and designing something close to my interests makes it easier to imagine and implement.
+2. **Shared Ambition:** I believe your company might share the same enthusiasm for games in general.
+
+The design approach is minimalistic and modern. Despite the time pressure, I am quite happy with the outcome. I hope this resonates with you!
+
+## Expanding the ESLint Configuration
+
+To expand the ESLint configuration, you can modify the `.eslintrc` file to include additional rules and plugins as needed. This will help maintain code quality and consistency across the project.
+
+## Deployment
+
+You can view the live project at the following link:
+
+[Live Project on Vercel](https://vercel-deployment-url.vercel.app)
