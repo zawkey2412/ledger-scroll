@@ -18,8 +18,16 @@ const COLLECTION_NAME = "characters";
 // Handle Firebase errors
 const handleFirebaseError = (error: unknown) => {
   if (error instanceof FirebaseError) {
-    if (error.code === "permission-denied") {
-      throw new Error("You do not have permission to perform this action");
+    switch (error.code) {
+      case "permission-denied":
+        throw new Error("You do not have permission to perform this action");
+      case "unavailable":
+        throw new Error(
+          "Service is currently unavailable. Please try again later."
+        );
+
+      default:
+        throw new Error("An unknown error occurred");
     }
   }
   throw error;

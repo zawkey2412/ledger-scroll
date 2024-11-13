@@ -10,7 +10,6 @@ A React + TypeScript project using Vite for fast development and build times. Th
 - [Building](#building)
 - [Design and Implementation](#design-and-implementation)
 - [Expanding the ESLint Configuration](#expanding-the-eslint-configuration)
-- [Deployment](#deployment)
 
 ## Features
 
@@ -89,9 +88,3 @@ The design approach is minimalistic and modern. Despite the time pressure, I am 
 ## Expanding the ESLint Configuration
 
 To expand the ESLint configuration, you can modify the `.eslintrc` file to include additional rules and plugins as needed. This will help maintain code quality and consistency across the project.
-
-## Deployment
-
-You can view the live project at the following link:
-
-[Live Project on Vercel](https://vercel-deployment-url.vercel.app)

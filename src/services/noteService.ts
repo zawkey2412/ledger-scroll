@@ -8,6 +8,7 @@ import {
   query,
   where,
   orderBy,
+  getDoc,
 } from "firebase/firestore";
 import { db, auth } from "./firebaseConfig";
 import { Note } from "../types/note";
@@ -18,8 +19,16 @@ const COLLECTION_NAME = "notes";
 // Handle Firebase errors
 const handleFirebaseError = (error: unknown) => {
   if (error instanceof FirebaseError) {
-    if (error.code === "permission-denied") {
-      throw new Error("You do not have permission to perform this action");
+    switch (error.code) {
+      case "permission-denied":
+        throw new Error("You do not have permission to perform this action");
+      case "unavailable":
+        throw new Error(
+          "Service is currently unavailable. Please try again later."
+        );
+
+      default:
+        throw new Error("An unknown error occurred");
     }
   }
   throw error;
@@ -61,6 +70,22 @@ export const noteService = {
     } catch (error) {
       handleFirebaseError(error);
       return [];
+    }
+  },
+
+  // Fetch a single note by ID
+  async fetchNoteById(id: string): Promise<Note> {
+    try {
+      const docRef = doc(db, COLLECTION_NAME, id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        return { ...docSnap.data(), id: docSnap.id } as Note;
+      } else {
+        throw new Error("Note not found");
+      }
+    } catch (error) {
+      handleFirebaseError(error);
+      throw error;
     }
   },
 
