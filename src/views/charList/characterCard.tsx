@@ -22,6 +22,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
   campaigns = [],
 }) => {
   const navigate = useNavigate();
+  const DEFAULT_IMAGE = "https://via.placeholder.com/150";
 
   const handleWriteNote = () => {
     navigate(`/notes/${character.id}`);
@@ -45,7 +46,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
       {/* Checkbox for edit mode */}
       <div className="h-28 mb-2">
         <img
-          src={character.image}
+          src={character.image || DEFAULT_IMAGE}
           alt={character.name}
           className="w-full h-full object-cover rounded"
         />

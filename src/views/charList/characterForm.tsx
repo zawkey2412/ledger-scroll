@@ -12,13 +12,15 @@ import toast from "react-hot-toast";
 import { createPortal } from "react-dom";
 import ConfirmationModal from "../../components/confirmationModal";
 
+const DEFAULT_IMAGE = "https://via.placeholder.com/150";
+
 const CharacterForm: React.FC<CharacterFormProps> = ({
   character,
   onClose,
 }) => {
   const { addCharacter, editCharacter } = useCharacterStore();
   const [imagePreview, setImagePreview] = useState<string>(
-    character?.image || ""
+    character?.image || DEFAULT_IMAGE
   );
   const [showImageInput, setShowImageInput] = useState<boolean>(
     !character?.image
@@ -36,7 +38,7 @@ const CharacterForm: React.FC<CharacterFormProps> = ({
       shouldValidate?: boolean
     ) => void
   ) => {
-    const imageUrl = event.target.value;
+    const imageUrl = event.target.value || DEFAULT_IMAGE;
     setImagePreview(imageUrl);
     setFieldValue("image", imageUrl, false);
     setShowImageInput(false);
@@ -50,8 +52,8 @@ const CharacterForm: React.FC<CharacterFormProps> = ({
       shouldValidate?: boolean
     ) => void
   ) => {
-    setImagePreview("");
-    setFieldValue("image", "", false);
+    setImagePreview(DEFAULT_IMAGE);
+    setFieldValue("image", DEFAULT_IMAGE, false);
     setShowImageInput(true);
   };
 
@@ -103,7 +105,7 @@ const CharacterForm: React.FC<CharacterFormProps> = ({
             initialValues={{
               id: character?.id || uuidv4(),
               name: character?.name || "",
-              image: character?.image || "",
+              image: character?.image || DEFAULT_IMAGE,
               race: character?.race || "",
               class: character?.class || "",
               subclass: character?.subclass || "",
