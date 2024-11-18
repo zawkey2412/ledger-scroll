@@ -45,9 +45,15 @@ const Home: React.FC = () => {
             <>
               <p className="text-lg text-gray-700 mb-4">
                 You have{" "}
-                <span className="font-bold">{characterCount} characters</span>{" "}
-                and <span className="font-bold">{noteCount} notes</span> in
-                total. Ready for your next adventure? Dive into your notes to
+                <span className="font-bold">
+                  {characterCount}{" "}
+                  {characterCount === 1 ? "character" : "characters"}
+                </span>{" "}
+                and{" "}
+                <span className="font-bold">
+                  {noteCount} {noteCount === 1 ? "note" : "notes"}
+                </span>{" "}
+                in total. Ready for your next adventure? Dive into your notes to
                 relive past adventures or create new ones!
               </p>
               <CTAButton
