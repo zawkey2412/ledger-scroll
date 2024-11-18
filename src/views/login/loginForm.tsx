@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Formik, Form } from "formik";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../store/useAuthStore";
@@ -40,18 +40,18 @@ const LoginForm: React.FC = () => {
   };
 
   // Handle third-party login (Google, Twitter, GitHub)
-  const handleThirdPartyLogin = async (
-    loginMethod: () => Promise<void>,
-    provider: string
-  ) => {
-    try {
-      await loginMethod();
-      toast.success(`${provider}'s magic grants you passage`);
-      navigate("/");
-    } catch {
-      toast.error(`${provider}'s portal remains sealed`);
-    }
-  };
+  const handleThirdPartyLogin = useCallback(
+    async (loginMethod: () => Promise<void>, provider: string) => {
+      try {
+        await loginMethod();
+        toast.success(`${provider}'s magic grants you passage`);
+        navigate("/");
+      } catch {
+        toast.error(`${provider}'s portal remains sealed`);
+      }
+    },
+    [navigate]
+  );
 
   return (
     <>
@@ -64,7 +64,7 @@ const LoginForm: React.FC = () => {
           {/* Email and password fields */}
           <FormField name="email" type="email" placeholder="Email" />
           <FormField name="password" type="password" placeholder="Password" />
-          
+
           {/* Forgot password link */}
           <div className="flex justify-end w-full mb-4">
             <a
@@ -74,7 +74,7 @@ const LoginForm: React.FC = () => {
               Forgot Password?
             </a>
           </div>
-          
+
           {/* Stay logged in checkbox */}
           <div className="flex items-center mb-4 w-full">
             <label
@@ -93,7 +93,7 @@ const LoginForm: React.FC = () => {
               Stay Logged In
             </label>
           </div>
-          
+
           {/* Login button */}
           <div className="mt-6">
             <CTAButton
@@ -149,7 +149,7 @@ const LoginForm: React.FC = () => {
               <FaGithub size={12} />
             </button>
           </div>
-          
+
           {/* Link to registration page */}
           <a
             href="/register"
