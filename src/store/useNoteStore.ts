@@ -8,7 +8,14 @@ const useNoteStore = create<NoteStore>((set) => ({
   
   // Fetch notes from the service and update the state
   fetchNotes: async (characterId, sortBy) => {
-    const notes = await noteService.fetchNotes(characterId, sortBy);
+    let notes = await noteService.fetchNotes(characterId);
+
+    if (sortBy === "campaign") {
+      notes = notes.sort((a, b) => (a.campaignName || "").localeCompare(b.campaignName || ""));
+    } else if (sortBy === "recent") {
+      notes = notes.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    }
+
     set({ notes });
   },
   
