@@ -38,7 +38,7 @@ const Notes: React.FC = () => {
 
   // Fetch notes and campaigns when selectedCharacterId, sortBy, or user changes
   useEffect(() => {
-    if (user) {
+    if (user && characters.length > 0) {
       if (selectedCharacterId) {
         fetchNotes(selectedCharacterId, sortBy);
         const selectedCharacter = characters.find(
@@ -53,6 +53,10 @@ const Notes: React.FC = () => {
       }
     }
   }, [selectedCharacterId, sortBy, fetchNotes, characters, user]);
+
+  const handleCharacterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCharacterId(e.target.value || undefined);
+  };
 
   // Handlers for editing, deleting, and adding notes
 
@@ -125,9 +129,7 @@ const Notes: React.FC = () => {
               <select
                 id="character-select"
                 value={selectedCharacterId || ""}
-                onChange={(e) =>
-                  setSelectedCharacterId(e.target.value || undefined)
-                }
+                onChange={handleCharacterChange}
                 className="mt-1 p-3 block w-full border border-gray-300 rounded-md shadow-sm"
               >
                 <option value="">All Characters</option>
