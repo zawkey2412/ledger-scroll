@@ -39,7 +39,17 @@ const useAuthStore = create<AuthState>((set) => ({
   resetPassword: (email) => resetPassword(email, set),
   
   // Check if email is verified
-  isEmailVerified: () => auth.currentUser?.emailVerified ?? false,
+  isEmailVerified: () => {
+    if (auth.currentUser) {
+      // Bypass email verification for users logged in with a provider
+      const providerData = auth.currentUser.providerData;
+      if (providerData.some((provider) => provider.providerId !== 'password')) {
+        return true;
+      }
+      return auth.currentUser.emailVerified;
+    }
+    return false;
+  },
 }));
 
 // Listen for authentication state changes
