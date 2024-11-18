@@ -30,6 +30,7 @@ const NoteForm: React.FC<NoteFormProps> = ({
   const [filteredCampaignNames, setFilteredCampaignNames] = useState<string[]>(
     campaignNames
   );
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Fetch character name and list of characters on component mount
   useEffect(() => {
@@ -60,6 +61,7 @@ const NoteForm: React.FC<NoteFormProps> = ({
   // Confirm form submission
   const handleConfirmSubmit = async () => {
     if (!formValues) return;
+    setIsSubmitting(true);
 
     const noteWithCharacterId = {
       ...formValues,
@@ -83,6 +85,7 @@ const NoteForm: React.FC<NoteFormProps> = ({
         },
       });
     }
+    setIsSubmitting(false);
     setIsConfirmationOpen(false);
     onClose();
   };
@@ -152,12 +155,13 @@ const NoteForm: React.FC<NoteFormProps> = ({
                 </span>
                 <CTAButton
                   to="#"
-                  text={note ? "Update Note" : "Add Note"}
+                  text={isSubmitting ? (note ? "Updating..." : "Creating...") : (note ? "Update Note" : "Add Note")}
                   fromColor="from-blue-500"
                   toColor="to-blue-700"
                   hoverFromColor="hover:from-blue-600"
                   hoverToColor="hover:to-blue-700"
                   type="submit"
+                  disabled={isSubmitting}
                 />
               </div>
             </Form>
