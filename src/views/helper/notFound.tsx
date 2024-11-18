@@ -30,11 +30,10 @@ const NotFound: React.FC = () => {
         <h2 className="text-2xl font-bold mt-4">
           Uh-oh! The dragon lay its egg here.
         </h2>
-        <p className="text-base mt-2">
+        <p className="text-base mt-2 mb-4">
           You might want to run back to safety before it hatches.
         </p>
         <CTAButton
-          // Call to action button to navigate back to the home page
           to="/"
           text="Back to Safety"
           fromColor="from-red-600"

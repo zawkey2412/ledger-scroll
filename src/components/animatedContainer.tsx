@@ -1,6 +1,7 @@
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import ImageCarousel from "./imageCarousel";
+import Logo from "../../assets/logo.png";
 import { AnimatedContainerProps } from "../types/animatedContainerProps";
 
 // Define the component's props
@@ -62,7 +63,7 @@ const AnimatedContainer: React.FC<Props> = ({
                 adventures. Create your own
               </div>
               <img
-                src="src/assets/logo.png"
+                src={Logo}
                 alt="Logo"
                 className="w-14 h-14 mt-4"
                 aria-label="Logo"

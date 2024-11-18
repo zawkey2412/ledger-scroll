@@ -25,6 +25,7 @@ const CharacterForm: React.FC<CharacterFormProps> = ({
   );
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [formValues, setFormValues] = useState<Character | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Handle image link change and update the preview
   const handleImageLinkChange = (
@@ -63,6 +64,7 @@ const CharacterForm: React.FC<CharacterFormProps> = ({
   // Confirm form submission and add/edit character
   const handleConfirmSubmit = async () => {
     if (!formValues) return;
+    setIsSubmitting(true);
 
     const characterData = {
       ...formValues,
@@ -75,6 +77,7 @@ const CharacterForm: React.FC<CharacterFormProps> = ({
       await addCharacter(characterData);
       toast.success("Character added successfully.");
     }
+    setIsSubmitting(false);
     setIsConfirmationOpen(false);
     onClose();
   };
@@ -134,12 +137,21 @@ const CharacterForm: React.FC<CharacterFormProps> = ({
                   </span>
                   <CTAButton
                     to="#"
-                    text={character ? "Update Character" : "Add Character"}
+                    text={
+                      isSubmitting
+                        ? character
+                          ? "Updating..."
+                          : "Creating..."
+                        : character
+                        ? "Update Character"
+                        : "Add Character"
+                    }
                     fromColor="from-blue-500"
                     toColor="to-blue-700"
                     hoverFromColor="hover:from-blue-600"
                     hoverToColor="hover:to-blue-700"
                     type="submit"
+                    disabled={isSubmitting}
                   />
                 </div>
               </Form>
