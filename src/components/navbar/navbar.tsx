@@ -10,16 +10,19 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = useAuthStore();
 
+  // Toggle the mobile sidebar
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
   return (
     <header className="bg-secondary py-4 px-8 z-50 text-white flex justify-between items-center shadow-lg">
+      {/* Logo and site name */}
       <a href="/" aria-label="Home" className="flex items-center">
         <img src={Logo} alt="Ledger Scroll Logo" className="h-14" />
         <span className="text-base font-medium">Ledger Scroll</span>
       </a>
+      {/* Mobile menu button */}
       <button
         className="md:hidden focus:outline-none"
         onClick={toggleSidebar}
@@ -31,6 +34,7 @@ const Navbar: React.FC = () => {
           <FaBars className="h-6 w-6 hover:text-highlight transition duration-300" />
         )}
       </button>
+      {/* Desktop navigation */}
       <nav className="hidden md:flex space-x-6">
         <NavItem to="/">Home</NavItem>
         <NavItem to="/character-list">Character List</NavItem>
@@ -49,6 +53,7 @@ const Navbar: React.FC = () => {
           </>
         )}
       </nav>
+      {/* Mobile navigation */}
       {isOpen && (
         <motion.div
           initial={{ y: "-100%" }}
