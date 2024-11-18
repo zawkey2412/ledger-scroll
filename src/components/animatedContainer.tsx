@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import ImageCarousel from "./imageCarousel";
-import Logo from "../../assets/logo.png";
+import Logo from "../assets/logo.png";
 import { AnimatedContainerProps } from "../types/animatedContainerProps";
 
 // Define the component's props
