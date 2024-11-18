@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import useCharacterStore from "../store/useCharacterStore";
 import useNoteStore from "../store/useNoteStore";
+import useAuthStore from "../store/useAuthStore";
 import RollOfFate from "../components/RollOfFate";
 import { motion } from "framer-motion";
 import { FaDice, FaTimes } from "react-icons/fa";
@@ -11,16 +11,18 @@ const Home: React.FC = () => {
   // State and store hooks
   const { characters, fetchCharacters } = useCharacterStore();
   const { notes, fetchNotes } = useNoteStore();
+  const { user } = useAuthStore(); // Fetch user from the auth store
   const [characterCount, setCharacterCount] = useState(0);
   const [noteCount, setNoteCount] = useState(0);
   const [isRollOfFateOpen, setIsRollOfFateOpen] = useState(false);
-  const navigate = useNavigate();
 
-  // Fetch characters and notes on component mount
+  // Fetch characters and notes on component mount or user changes
   useEffect(() => {
-    fetchCharacters();
-    fetchNotes();
-  }, [fetchCharacters, fetchNotes]);
+    if (user) {
+      fetchCharacters();
+      fetchNotes();
+    }
+  }, [fetchCharacters, fetchNotes, user]);
 
   // Update character count when characters change
   useEffect(() => {
@@ -31,15 +33,6 @@ const Home: React.FC = () => {
   useEffect(() => {
     setNoteCount(notes.length);
   }, [notes]);
-
-  // Handlers for navigation
-  const handleCreateCharacter = () => {
-    navigate("/character-list");
-  };
-
-  const handleViewNotes = () => {
-    navigate("/notes");
-  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 text-gray-900 p-4 relative">
@@ -64,7 +57,6 @@ const Home: React.FC = () => {
                 toColor="bg-secondary"
                 hoverFromColor="hover:bg-accent"
                 hoverToColor="hover:bg-highlight"
-                onClick={handleViewNotes}
               />
             </>
           ) : (
@@ -81,7 +73,6 @@ const Home: React.FC = () => {
                 toColor="bg-secondary"
                 hoverFromColor="hover:bg-accent"
                 hoverToColor="hover:bg-highlight"
-                onClick={handleCreateCharacter}
               />
             </>
           )}

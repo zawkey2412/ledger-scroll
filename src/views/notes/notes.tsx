@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useNoteStore from "../../store/useNoteStore";
+import useAuthStore from "../../store/useAuthStore";
 import NoteList from "./noteList";
 import { Character } from "../../types/character";
 import { characterService } from "../../services/characterService";
@@ -9,11 +10,13 @@ import toast from "react-hot-toast";
 import CTAButton from "../../components/CTAButton";
 
 const Notes: React.FC = () => {
-  // Get characterId from URL parameters
+  // Get characterId from parameters
   const { characterId } = useParams<{ characterId: string }>();
   // Fetch notes and delete note functions from the store
   const { fetchNotes, deleteNote, notes } = useNoteStore();
-  // State variables for characters, selected character, sorting, campaigns, edit mode, and selected notes
+  // Fetch user from the auth store
+  const { user } = useAuthStore();
+  // State management for various UI elements and actions
   const [characters, setCharacters] = useState<Character[]>([]);
   const [selectedCharacterId, setSelectedCharacterId] = useState<
     string | undefined
@@ -33,29 +36,31 @@ const Notes: React.FC = () => {
     fetchCharacters();
   }, []);
 
-  // Fetch notes and campaigns when selectedCharacterId or sortBy changes
+  // Fetch notes and campaigns when selectedCharacterId, sortBy, or user changes
   useEffect(() => {
-    if (selectedCharacterId) {
-      fetchNotes(selectedCharacterId, sortBy);
-      const selectedCharacter = characters.find(
-        (character) => character.id === selectedCharacterId
-      );
-      if (selectedCharacter) {
-        setCampaigns(selectedCharacter.campaigns || []);
+    if (user) {
+      if (selectedCharacterId) {
+        fetchNotes(selectedCharacterId, sortBy);
+        const selectedCharacter = characters.find(
+          (character) => character.id === selectedCharacterId
+        );
+        if (selectedCharacter) {
+          setCampaigns(selectedCharacter.campaigns || []);
+        }
+      } else {
+        fetchNotes(undefined, sortBy);
+        setCampaigns([]);
       }
-    } else {
-      fetchNotes(undefined, sortBy);
-      setCampaigns([]);
     }
-  }, [selectedCharacterId, sortBy, fetchNotes, characters]);
+  }, [selectedCharacterId, sortBy, fetchNotes, characters, user]);
 
-  // Handle sorting change
+  // Handlers for editing, deleting, and adding notes
+
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortBy(e.target.value);
     fetchNotes(selectedCharacterId, e.target.value);
   };
 
-  // Toggle edit mode and reset selected notes
   const handleToggleEditMode = () => {
     setIsEditMode(!isEditMode);
     setSelectedNotes(new Set());
@@ -74,7 +79,6 @@ const Notes: React.FC = () => {
     );
   };
 
-  // Delete selected notes
   const handleDeleteSelected = () => {
     if (selectedNotes.size === 0) {
       toast.error("No notes selected for deletion.", {
@@ -95,6 +99,15 @@ const Notes: React.FC = () => {
       },
     });
   };
+
+  // Render login prompt if user is not logged in
+  if (!user) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-primary text-white">
+        <h1 className="text-4xl font-bold mb-6">Please log in to view notes</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
