@@ -34,7 +34,7 @@ const Home: React.FC = () => {
 
   // Handlers for navigation
   const handleCreateCharacter = () => {
-    navigate("/characters");
+    navigate("/character-list");
   };
 
   const handleViewNotes = () => {
@@ -75,7 +75,7 @@ const Home: React.FC = () => {
                 endless possibilities.
               </p>
               <CTAButton
-                to="/characters"
+                to="/character-list"
                 text="Create Character"
                 fromColor="bg-primary"
                 toColor="bg-secondary"
