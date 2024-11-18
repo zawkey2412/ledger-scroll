@@ -3,12 +3,14 @@ import useAuthStore from "../../store/useAuthStore";
 
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  const { user, isEmailVerified } = useAuthStore();
+  const { user, isEmailVerified, loading } = useAuthStore();
 
-  if (!user) {
-    return <Navigate to="/login" />;
-  } else if (!isEmailVerified()) {
-    return <Navigate to="/verify-email" />;
+  if (!loading) {
+    if (!user) {
+      return <Navigate to="/login" />;
+    } else if (!isEmailVerified()) {
+      return <Navigate to="/verify-email" />;
+    }
   }
 
   return children;

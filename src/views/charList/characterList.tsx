@@ -15,20 +15,30 @@ const CharacterList: React.FC = () => {
   // Fetch user and character data from stores
   const { user } = useAuthStore();
   const { characters, fetchCharacters, deleteCharacter } = useCharacterStore();
-  
-  // State management for various UI elements and actions
-  const [editingCharacter, setEditingCharacter] = useState<Character | null>(null);
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [selectedCharacters, setSelectedCharacters] = useState<Set<string>>(new Set());
-  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-  const [characterToDelete, setCharacterToDelete] = useState<string | null>(null);
 
-  // Fetch characters when component mounts
+  // State management for various UI elements and actions
+  const [editingCharacter, setEditingCharacter] = useState<Character | null>(
+    null
+  );
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
+    null
+  );
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [selectedCharacters, setSelectedCharacters] = useState<Set<string>>(
+    new Set()
+  );
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [characterToDelete, setCharacterToDelete] = useState<string | null>(
+    null
+  );
+
+  // Fetch characters when component mounts or user changes
   useEffect(() => {
-    fetchCharacters();
-  }, [fetchCharacters]);
+    if (user) {
+      fetchCharacters();
+    }
+  }, [fetchCharacters, user]);
 
   // Handlers for editing, deleting, and adding characters
   const handleEdit = (character: Character) => {
