@@ -1,7 +1,7 @@
 import FormField from "../../components/formField";
 import { FieldArray } from "formik";
 import { useState } from "react";
-import { FaPaperPlane } from "react-icons/fa"; 
+import { FaPaperPlane } from "react-icons/fa";
 
 const CharacterFormFields: React.FC = () => {
   // State management for campaign input
@@ -90,18 +90,33 @@ const CharacterFormFields: React.FC = () => {
                   onChange={(e) => setCampaignInput(e.target.value)}
                   placeholder="Add campaign"
                   className="w-full p-1.5 border border-gray-300 rounded text-sm"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      if (
+                        campaignInput.trim() &&
+                        form.values.campaigns.length < 5
+                      ) {
+                        push(campaignInput.trim());
+                        setCampaignInput("");
+                      }
+                    }
+                  }}
                 />
                 <button
                   type="button"
                   onClick={() => {
-                    if (campaignInput.trim() && form.values.campaigns.length < 5) {
+                    if (
+                      campaignInput.trim() &&
+                      form.values.campaigns.length < 5
+                    ) {
                       push(campaignInput.trim());
                       setCampaignInput("");
                     }
                   }}
-                  className="bg-blue-500 text-white px-3 py-1 rounded text-sm flex items-center"
+                  className="bg-primary hover:bg-accent text-white px-4 py-2 rounded"
                 >
-                  <FaPaperPlane />
+                  <FaPaperPlane className="text-sm" />
                 </button>
               </div>
               <div className="flex flex-wrap gap-2">

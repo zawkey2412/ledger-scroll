@@ -115,7 +115,7 @@ const NoteForm: React.FC<NoteFormProps> = ({
         exit={{ opacity: 0 }}
       >
         <motion.div
-          className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
+          className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md max-h-[85vh] md:max-h-[95vh] flex flex-col overflow-hidden"
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           exit={{ scale: 0.8 }}
@@ -139,14 +139,14 @@ const NoteForm: React.FC<NoteFormProps> = ({
               resetForm();
             }}
           >
-            <Form className="space-y-3">
+            <Form className="space-y-3 px-2 flex-grow overflow-y-auto">
               <NoteFormFields
                 showAsField={showAsField}
                 characters={characters}
                 filteredCampaignNames={filteredCampaignNames}
                 handleCharacterNameChange={handleCharacterNameChange}
               />
-              <div className="flex justify-end items-center gap-4 pt-6 border-t">
+              <div className="flex justify-end items-center gap-4 pt-6 pb-2 border-t">
                 <span
                   onClick={onClose}
                   className="cursor-pointer my-auto text-gray-500 hover:text-red-500"
@@ -155,11 +155,19 @@ const NoteForm: React.FC<NoteFormProps> = ({
                 </span>
                 <CTAButton
                   to="#"
-                  text={isSubmitting ? (note ? "Updating..." : "Creating...") : (note ? "Update Note" : "Add Note")}
-                  fromColor="from-blue-500"
-                  toColor="to-blue-700"
-                  hoverFromColor="hover:from-blue-600"
-                  hoverToColor="hover:to-blue-700"
+                  text={
+                    isSubmitting
+                      ? note
+                        ? "Updating..."
+                        : "Creating..."
+                      : note
+                      ? "Update Note"
+                      : "Add Note"
+                  }
+                  fromColor="bg-primary"
+                  toColor="bg-secondary"
+                  hoverFromColor="hover:bg-accent"
+                  hoverToColor="hover:bg-highlight"
                   type="submit"
                   disabled={isSubmitting}
                 />

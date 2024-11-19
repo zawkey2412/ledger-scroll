@@ -93,7 +93,7 @@ const CharacterForm: React.FC<CharacterFormProps> = ({
         exit={{ opacity: 0 }}
       >
         <motion.div
-          className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
+          className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md max-h-[85vh] md:max-h-[95vh] flex flex-col overflow-hidden"
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           exit={{ scale: 0.8 }}
@@ -121,7 +121,7 @@ const CharacterForm: React.FC<CharacterFormProps> = ({
             }}
           >
             {({ setFieldValue }) => (
-              <Form className="space-y-3">
+              <Form className="space-y-3 px-2 flex-grow overflow-y-auto pb-2">
                 <CharacterImageField
                   imagePreview={imagePreview}
                   showImageInput={showImageInput}
@@ -148,10 +148,10 @@ const CharacterForm: React.FC<CharacterFormProps> = ({
                         ? "Update Character"
                         : "Add Character"
                     }
-                    fromColor="from-blue-500"
-                    toColor="to-blue-700"
-                    hoverFromColor="hover:from-blue-600"
-                    hoverToColor="hover:to-blue-700"
+                    fromColor="bg-primary"
+                    toColor="bg-secondary"
+                    hoverFromColor="hover:bg-accent"
+                    hoverToColor="hover:bg-highlight"
                     type="submit"
                     disabled={isSubmitting}
                   />

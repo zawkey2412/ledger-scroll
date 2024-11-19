@@ -15,12 +15,21 @@ const Navbar: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleItemClick = () => {
+    setIsOpen(false);
+  };
+
+  const itemVariants = {
+    closed: { opacity: 0, y: -20 },
+    open: { opacity: 1, y: 0 },
+  };
+
   return (
     <header className="bg-secondary py-4 px-8 z-50 text-white flex justify-between items-center shadow-lg">
       {/* Logo and site name */}
       <a href="/" aria-label="Home" className="flex items-center">
         <img src={Logo} alt="Ledger Scroll Logo" className="h-14" />
-        <span className="text-base font-medium">Ledger Scroll</span>
+        <span className="hidden md:block text-base font-medium">Ledger Scroll</span>
       </a>
       {/* Mobile menu button */}
       <button
@@ -70,20 +79,81 @@ const Navbar: React.FC = () => {
             <FaTimes className="h-6 w-6 hover:text-red-600 transition duration-300" />
           </button>
           <nav className="flex flex-col space-y-6 items-center text-lg">
-            <MobileNavItem to="/">Home</MobileNavItem>
-            <MobileNavItem to="/character-list">Character List</MobileNavItem>
-            <MobileNavItem to="/notes">Notes</MobileNavItem>
+            <motion.div
+              variants={itemVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              transition={{ delay: 0.1 }}
+            >
+              <MobileNavItem to="/" onClick={handleItemClick}>
+                Home
+              </MobileNavItem>
+            </motion.div>
+            <motion.div
+              variants={itemVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              transition={{ delay: 0.2 }}
+            >
+              <MobileNavItem to="/character-list" onClick={handleItemClick}>
+                Character List
+              </MobileNavItem>
+            </motion.div>
+            <motion.div
+              variants={itemVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              transition={{ delay: 0.3 }}
+            >
+              <MobileNavItem to="/notes" onClick={handleItemClick}>
+                Notes
+              </MobileNavItem>
+            </motion.div>
             {user ? (
-              <button
-                onClick={logout}
-                className="hover:text-accent flex items-center space-x-2 transition duration-300"
+              <motion.div
+                variants={itemVariants}
+                initial="closed"
+                animate="open"
+                exit="closed"
+                transition={{ delay: 0.4 }}
               >
-                <span>Log Out</span>
-              </button>
+                <button
+                  onClick={() => {
+                    logout();
+                    handleItemClick();
+                  }}
+                  className="hover:text-accent flex items-center space-x-2 transition duration-300"
+                >
+                  <span>Log Out</span>
+                </button>
+              </motion.div>
             ) : (
               <>
-                <MobileNavItem to="/login">Login</MobileNavItem>
-                <MobileNavItem to="/register">Register</MobileNavItem>
+                <motion.div
+                  variants={itemVariants}
+                  initial="closed"
+                  animate="open"
+                  exit="closed"
+                  transition={{ delay: 0.5 }}
+                >
+                  <MobileNavItem to="/login" onClick={handleItemClick}>
+                    Login
+                  </MobileNavItem>
+                </motion.div>
+                <motion.div
+                  variants={itemVariants}
+                  initial="closed"
+                  animate="open"
+                  exit="closed"
+                  transition={{ delay: 0.6 }}
+                >
+                  <MobileNavItem to="/register" onClick={handleItemClick}>
+                    Register
+                  </MobileNavItem>
+                </motion.div>
               </>
             )}
           </nav>

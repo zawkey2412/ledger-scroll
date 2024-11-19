@@ -92,7 +92,7 @@ const CharacterImageField: React.FC<CharacterImageFieldProps> = ({
               name="image"
               value={inputValue}
               placeholder="Paste the image URL here..."
-              className="w-full p-1.5 border border-gray-300 rounded text-sm"
+              className="w-full p-1.5 border focus:outline-none focus:ring-2 focus:ring-blue-500  border-gray-300 rounded text-sm"
               onChange={(e) => {
                 const value = e.target.value;
                 setInputValue(value);
