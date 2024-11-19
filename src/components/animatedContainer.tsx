@@ -36,8 +36,8 @@ const AnimatedContainer: React.FC<Props> = ({
   const sizeClasses = {
     small:
       "max-w-[85%] sm:max-w-[70%] md:max-w-[50%] lg:max-w-[40%] xl:max-w-[30%]",
-    medium: "max-w-[75%] h-4/5",
-    large: "max-w-[95%] xl:max-w-[60%] h-4/5",
+    medium: "max-w-[75%] h-fit",
+    large: "max-w-[90%] xl:max-w-[60%] h-fit",
   };
 
   return createPortal(

@@ -1,5 +1,6 @@
-import { Field, ErrorMessage } from "formik";
+import { Field } from "formik";
 import { NoteFormFieldsProps } from "../../types/note";
+import FormField from "../../components/formField";
 
 const NoteFormFields: React.FC<NoteFormFieldsProps> = ({
   showAsField,
@@ -9,81 +10,51 @@ const NoteFormFields: React.FC<NoteFormFieldsProps> = ({
 }) => {
   return (
     <>
-      {/* Title Field */}
       <div>
-        <label
-          htmlFor="title"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="title" className="text-sm font-medium">
           Title
         </label>
-        <Field
-          id="title"
+        <FormField
           name="title"
-          type="text"
-          className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm"
-        />
-        <ErrorMessage
-          name="title"
-          component="div"
-          className="text-red-500 text-xs mt-1"
+          placeholder="Enter title"
+          className="w-full p-1.5 border border-gray-300 rounded text-sm"
         />
       </div>
-      {/* Date Field */}
+
       <div>
-        <label
-          htmlFor="date"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="date" className="text-sm font-medium">
           Date
         </label>
-        <Field
-          id="date"
+        <FormField
           name="date"
           type="date"
-          className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm"
-        />
-        <ErrorMessage
-          name="date"
-          component="div"
-          className="text-red-500 text-xs mt-1"
+          placeholder="Select date"
+          className="w-full p-1.5 border border-gray-300 rounded text-sm"
         />
       </div>
-      {/* Content Field */}
+
       <div>
-        <label
-          htmlFor="content"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="content" className="text-sm font-medium">
           Content
         </label>
-        <Field
-          id="content"
+        <FormField
           name="content"
           as="textarea"
-          rows="4"
-          className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm"
-        />
-        <ErrorMessage
-          name="content"
-          component="div"
-          className="text-red-500 text-xs mt-1"
+          placeholder="Enter content"
+          className="w-full p-1.5 border border-gray-300 rounded text-sm min-h-[100px]"
         />
       </div>
-      {/* Character Name Field */}
+
       {showAsField && (
         <div>
-          <label
-            htmlFor="characterName"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="characterName" className="text-sm font-medium">
             As
           </label>
           <Field
             as="select"
             id="characterName"
             name="characterName"
-            className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm"
+            className="w-full p-1.5 border border-gray-300 rounded text-sm"
             onChange={handleCharacterNameChange}
           >
             <option value="" disabled>
@@ -95,26 +66,18 @@ const NoteFormFields: React.FC<NoteFormFieldsProps> = ({
               </option>
             ))}
           </Field>
-          <ErrorMessage
-            name="characterName"
-            component="div"
-            className="text-red-500 text-xs mt-1"
-          />
         </div>
       )}
-      {/* Campaign Name Field */}
+
       <div>
-        <label
-          htmlFor="campaignName"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="campaignName" className="text-sm font-medium">
           Campaign Name
         </label>
         <Field
           as="select"
           id="campaignName"
           name="campaignName"
-          className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm"
+          className="w-full p-1.5 border border-gray-300 rounded text-sm"
         >
           <option value="" disabled>
             Select a campaign
@@ -125,11 +88,6 @@ const NoteFormFields: React.FC<NoteFormFieldsProps> = ({
             </option>
           ))}
         </Field>
-        <ErrorMessage
-          name="campaignName"
-          component="div"
-          className="text-red-500 text-xs mt-1"
-        />
       </div>
     </>
   );

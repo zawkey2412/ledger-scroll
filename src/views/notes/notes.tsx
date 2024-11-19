@@ -107,7 +107,7 @@ const Notes: React.FC = () => {
   // Render login prompt if user is not logged in
   if (!user) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-primary text-white">
+      <div className="flex flex-col items-center text-center justify-center min-h-screen bg-primary text-white">
         <h1 className="text-4xl font-bold mb-6">Please log in to view notes</h1>
       </div>
     );

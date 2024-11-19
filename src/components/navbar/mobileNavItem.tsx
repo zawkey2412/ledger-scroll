@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { MobileNavItemProps } from "../../types/navbar";
 
 
-const MobileNavItem: React.FC<MobileNavItemProps> = ({ to, children }) => (
+const MobileNavItem: React.FC<MobileNavItemProps & { onClick?: () => void }> = ({ to, children, onClick }) => (
   <NavLink
     to={to}
     className={({ isActive }) =>
@@ -11,6 +11,7 @@ const MobileNavItem: React.FC<MobileNavItemProps> = ({ to, children }) => (
         isActive ? "text-black md:text-highlight font-bold" : ""
       }`
     }
+    onClick={onClick}
   >
     {children}
   </NavLink>

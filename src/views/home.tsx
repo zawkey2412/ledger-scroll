@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useCharacterStore from "../store/useCharacterStore";
 import useNoteStore from "../store/useNoteStore";
 import useAuthStore from "../store/useAuthStore";
-import RollOfFate from "../components/RollOfFate";
+import FunDiceRoller from "../components/funDiceRoller";
 import { motion } from "framer-motion";
 import { FaDice, FaTimes } from "react-icons/fa";
 import CTAButton from "../components/CTAButton";
@@ -86,13 +86,13 @@ const Home: React.FC = () => {
       </main>
       {/* Roll of Fate sidebar */}
       <motion.div
-        className="fixed top-1/2 right-0 transform -translate-y-1/2 bg-gray-200 p-4 text-gray-900 text-center h-full overflow-y-auto shadow-lg"
+        className="fixed top-0 right-0 transform bg-gray-200 p-4 text-gray-900 text-center h-full overflow-y-auto shadow-lg w-full sm:w-96 md:w-[450px] lg:w-[500px]"
         initial={{ x: "100%" }}
         animate={{ x: isRollOfFateOpen ? "0%" : "100%" }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold text-gray-800">Roll of Fate</h2>
+          <h2 className="text-2xl font-bold text-gray-800">Fun Dice Roller</h2>
           <button
             className="text-red-500"
             onClick={() => setIsRollOfFateOpen(false)}
@@ -100,7 +100,7 @@ const Home: React.FC = () => {
             <FaTimes className="text-xl" />
           </button>
         </div>
-        <RollOfFate />
+        <FunDiceRoller />
       </motion.div>
       {/* Button to open Roll of Fate */}
       {!isRollOfFateOpen && (
